@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student E-Portfolio</title>
+    <!--Connection 1: External CSS Link-->
+    <link rel="stylesheet" href="style.css">
+    <!--Connection 2: External JS Link-->
+    <script src="script.js" defer></script>
+</head>
+<body class="dark-mode">
+    <header class="site-header">
+        <nav class="top-nav" aria-label="Main navigation">
+            <div class="brand" aria-label="Rafael Miguel Maniquiz">
+                <img class="brand-mark" src="imgs/Film1.jpeg" alt="Film1">
+                <span class="brand-name">Rafael</span>
+            </div>
+
+            <div class="nav-links">
+                <a class="active" href="#hero">Home</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+                <a href="#organizations">Organizations</a>
+                <a href="#gallery">Achievements</a>
+                <a href="#other-works">Other Works</a>
+                <a href="#equipment">Equipment</a>
+            </div>
+
+            <button id="theme-btn" class="theme-btn" type="button" aria-label="Switch to light mode">☼</button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="hero-copy">
+                <p class="hero-eyebrow">RAFAEL MIGUEL MANIQUIZ <span>·</span> PORTFOLIO 2026</p>
+                <h1>Stories,<br><em>in focus.</em></h1>
+                <p class="hero-intro">IT student by day, storyteller behind the camera. I build, film, and make things worth remembering.</p>
+                <a class="hero-link" href="#gallery">Explore my work <span aria-hidden="true">↘</span></a>
+            </div>
+            <div class="hero-recording" aria-label="Recording">
+                <span class="recording-dot"></span>
+                <span>REC</span>
+            </div>
+            <p class="hero-frame-note">01 / BEHIND THE LENS</p>
+        </section>
+
+        <section id="projects">
+            <h2>Featured Projects</h2>
+            <div class="card">
+                <h3>Web Integration Lab</h3>
+                <p>a demonstration of linking HTML, CSS, and JS</p>
+            </div>
+            <div class="card">
+                <h3>Human and Computer Interaction</h3>
+                <p>Low Fidelity and High Fidelity Prototyping</p>
+            </div>
+            <div class="experience-entry">
+                <h3>Experience</h3>
+                <div class="card">
+                    <h4>Work Immersion</h4>
+                    <p>University of the Immaculate Conception</p>
+                </div>
+            </div>
+        </section>
+    
+        <section id="contact">
+            
+            <h2>Contact</h2>
+            <button id="contact-btn" class="contact-btn">Get in Touch</button>
+            <h3 class="about-prompt-title">About me</h3>
+            <a class="contact-btn" href="about.html">Click me</a>
+        </section>
+
+        <section id="organizations">
+            <h2>Organizations</h2>
+            <div class="organization-grid">
+                <article class="organization-item">
+                    <h3>Society of Information Technology Education Students (SITES)</h3>
+                    <p>Asst. Treasurer</p>
+                </article>
+                <article class="organization-item">
+                    <h3>Google Developer Group on Campus (GDGOC)</h3>
+                    <p>Core Member</p>
+                </article>
+                <article class="organization-item">
+                    <h3>Ignacian Management and Safety Committee (IMSC)</h3>
+                    <p>Safety Committee Member</p>
+                </article>
+                <article class="organization-item organization-item-centered">
+                    <h3>Redcross Youth</h3>
+                    <p>YVOM Disseminator</p>
+                    <p>Specialized Volunteer</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="gallery">
+            <h2>Achievements</h2>
+            <div class="gallery-grid">
+                <figure class="gallery-item">
+                    <a class="achievement-photo-link" href="https://drive.google.com/file/d/1tsSggiS1qH1lwYutni-sVO9AggM79Br8/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+                        <img src="imgs/IMG_2085_still.jpeg" alt="Mountain lake reflecting the surrounding forest">
+                    </a>
+                    <figcaption>Champions VIDEO MIMIC</figcaption>
+                    <p class="gallery-role">Lead Videographer</p>
+                </figure>
+                <figure class="gallery-item">
+                    <img src="imgs/certificate.jpeg" alt="Sunlight falling across a mountain lake">
+                    <figcaption>GDGOC Infosession</figcaption>
+                    <p class="gallery-role">Technical Team</p>
+                </figure>
+                <figure class="gallery-item">
+                    <a class="achievement-photo-link" href="https://web.facebook.com/reel/1029761849663957" target="_blank" rel="noopener noreferrer">
+                        <img src="imgs/kadayawan.jpeg" alt="Golden sunrise over a misty field">
+                    </a>
+                    <figcaption>Salida Kadayawan Film Competition</figcaption>
+                    <p class="gallery-role">Asst. Cinematographer</p>
+                </figure>
+            </div>
+        </section>
+
+        <section id="other-works">
+            <h2>Other Works</h2>
+            <div class="gallery-grid">
+                <figure class="gallery-item">
+                    <img src="imgs/Film1.jpeg" alt="RCY Fiesta Pregame">
+                    <figcaption>RCY Fiesta Pregame</figcaption>
+                    <p class="gallery-role">Videographer</p>
+                </figure>
+                <figure class="gallery-item">
+                    <img src="imgs/EDIT1.jpg" alt="RCY Fiesta Teaser">
+                    <figcaption>RCY Fiesta Teaser</figcaption>
+                    <p class="gallery-role">Main Editor</p>
+                </figure>
+            </div>
+        </section>
+
+        <section id="equipment">
+            <h2>Equipment Used</h2>
+            <div class="equipment-grid">
+                <figure class="gallery-item">
+                    <img src="imgs/db04416d-b1f5-4297-be94-f573def392d3.jpeg" alt="Camera equipment for video production">
+                </figure>
+                <figure class="gallery-item">
+                    <img src="imgs/846866ec-6df1-4024-b092-13ef87e5ae8e.jpeg" alt="Camera and lens equipment">
+                </figure>
+            </div>
+        </section>
+    </main>
+
+    <dialog id="contact-dialog" class="contact-dialog" aria-labelledby="contact-dialog-title">
+        <div class="contact-dialog-header">
+            <p class="contact-dialog-label">CONTACT DETAILS</p>
+            <h2 id="contact-dialog-title">Get in touch</h2>
+        </div>
+        <dl class="contact-details">
+            <div>
+                <dt>Email</dt>
+                <dd><button type="button" data-copy-value="rmaniquiz_260000000496@uic.edu.ph" data-copy-label="Email">rmaniquiz_260000000496@uic.edu.ph</button></dd>
+            </div>
+            <div>
+                <dt>Contact number</dt>
+                <dd>
+                    <button type="button" data-copy-value="09626959449" data-copy-label="Contact number">09626959449</button>
+                    <a class="contact-social-link" href="https://www.instagram.com/r.mnqz/" target="_blank" rel="noopener noreferrer" aria-label="Visit Instagram profile">
+                        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+                            <circle cx="12" cy="12" r="4"></circle>
+                            <circle cx="17.5" cy="6.5" r="0.75" fill="currentColor" stroke="none"></circle>
+                        </svg>
+                        <span>Instagram</span>
+                    </a>
+                    <a class="contact-social-link" href="https://www.facebook.com/raffy.maniquiz.5/" target="_blank" rel="noopener noreferrer" aria-label="Visit Facebook profile">
+                        <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M13.5 21v-8h2.7l.4-3.1h-3.1V8c0-.9.3-1.5 1.6-1.5h1.7V3.7c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2H7.3V13h2.8v8h3.4z"></path>
+                        </svg>
+                        <span>Facebook</span>
+                    </a>
+                    <a class="contact-social-link" href="https://github.com/Raffy-Maniquiz" target="_blank" rel="noopener noreferrer" aria-label="Visit GitHub profile">
+                        <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.73.083-.73 1.205.085 1.84 1.237 1.84 1.237 1.07 1.835 2.807 1.305 3.492.998.108-.776.42-1.305.763-1.605-2.665-.303-5.467-1.333-5.467-5.931 0-1.31.468-2.381 1.236-3.221-.124-.303-.536-1.523.117-3.176 0 0 1.008-.322 3.3 1.23.956-.266 1.98-.399 3-.405 1.02.006 2.044.139 3 .405 2.29-1.552 3.297-1.23 3.297-1.23.655 1.653.243 2.873.12 3.176.77.84 1.235 1.911 1.235 3.221 0 4.61-2.807 5.625-5.48 5.921.43.372.814 1.102.814 2.222 0 1.604-.015 2.896-.015 3.286 0 .319.216.694.825.576C20.565 21.392 24 17.387 24 12 24 5.37 18.63 0 12 0z"></path>
+                        </svg>
+                        <span>GitHub</span>
+                    </a>
+                </dd>
+            </div>
+        </dl>
+        <p id="contact-copy-status" class="contact-copy-status" role="status" aria-live="polite"></p>
+        <button class="contact-dialog-close" type="button">Close</button>
+    </dialog>
+    
+    <footer>
+        <p>&copy; <span id="year"></span> All rights reserved.</p>
+    </footer>
+</body>
+</html>

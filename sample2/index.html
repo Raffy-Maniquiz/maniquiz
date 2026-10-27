@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Pocket Shop | iPhone Inventory</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			font-family: "DM Sans", "Avenir Next", sans-serif;
+			color: #1e2924;
+			background: #f2f3ee;
+			font-synthesis: none;
+			--ink: #1e2924;
+			--muted: #77817b;
+			--line: #e3e7e0;
+			--paper: #fff;
+			--forest: #19362e;
+			--lime: #d5ed70;
+			--coral: #f27458;
+		}
+
+		* { box-sizing: border-box; }
+		body { margin: 0; min-width: 320px; min-height: 100vh; }
+		button, input, select { font: inherit; }
+		button { cursor: pointer; }
+		a { color: inherit; }
+		[hidden] { display: none !important; }
+
+		.login-layout {
+			min-height: 100vh;
+			display: grid;
+			grid-template-columns: minmax(360px, 0.9fr) minmax(400px, 1.1fr);
+			background: #fff;
+		}
+		.login-panel { display: flex; flex-direction: column; justify-content: center; padding: 56px clamp(28px, 8vw, 112px); }
+		.brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 18px; }
+		.brand-mark { display: grid; place-items: center; width: 36px; height: 36px; color: var(--forest); background: var(--lime); border-radius: 10px; font-size: 17px; }
+		.login-content { width: 100%; max-width: 420px; margin: 68px auto 0; }
+		.eyebrow { color: #567063; font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; }
+		h1, h2, p { margin-top: 0; }
+		.login-content h1 { margin: 12px 0 10px; font-family: Georgia, serif; font-size: clamp(34px, 4vw, 48px); font-weight: 400; line-height: 1.1; }
+		.login-content > p { margin-bottom: 32px; color: var(--muted); line-height: 1.6; }
+		.field { display: grid; gap: 8px; margin-bottom: 18px; }
+		.field label { font-size: 13px; font-weight: 700; }
+		.field input, .field select, .toolbar input, .toolbar select {
+			width: 100%; min-height: 44px; padding: 10px 12px; color: var(--ink); background: #fff;
+			border: 1px solid #d9dfd8; border-radius: 5px; outline: none;
+		}
+		.field input:focus, .field select:focus, .toolbar input:focus, .toolbar select:focus { border-color: #527f69; box-shadow: 0 0 0 3px #527f6920; }
+		.primary-button { min-height: 46px; border: 0; border-radius: 5px; padding: 0 18px; color: #fff; background: var(--forest); font-weight: 700; }
+		.primary-button:hover { background: #285044; }
+		.login-submit { width: 100%; margin-top: 4px; }
+		.login-error { min-height: 20px; margin: 10px 0 0; color: #b43e34; font-size: 13px; }
+		.demo-access { margin-top: 25px; padding-top: 19px; border-top: 1px solid var(--line); }
+		.demo-access > span { display: block; margin-bottom: 10px; color: var(--muted); font-size: 12px; }
+		.demo-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+		.demo-button { border: 1px solid var(--line); border-radius: 4px; padding: 7px 10px; background: #fff; color: var(--ink); font-size: 12px; }
+		.demo-button:hover { border-color: #8aa293; }
+		.login-art { position: relative; min-height: 600px; overflow: hidden; background: #213d34; }
+		.login-art img { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: .68; }
+		.login-art::after { position: absolute; inset: 0; content: ""; background: linear-gradient(180deg, #132b2440, #132b24e8); }
+		.art-copy { position: absolute; z-index: 1; right: 9%; bottom: 10%; left: 9%; max-width: 590px; color: #fff; }
+		.art-copy span { color: var(--lime); font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+		.art-copy h2 { margin: 12px 0; font-family: Georgia, serif; font-size: clamp(30px, 4vw, 54px); font-weight: 400; line-height: 1.08; }
+		.art-copy p { max-width: 420px; color: #e2e8e1; line-height: 1.6; }
+
+		.app-shell { min-height: 100vh; display: grid; grid-template-columns: 236px minmax(0, 1fr); }
+		.sidebar { display: flex; flex-direction: column; padding: 26px 18px; color: #f2f6f2; background: var(--forest); }
+		.sidebar .brand { padding: 0 8px 36px; }
+		.sidebar .brand-mark { color: var(--forest); }
+		.nav-label { padding: 0 10px; color: #a9bbb0; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+		.side-link { display: flex; align-items: center; gap: 11px; min-height: 42px; margin-top: 10px; padding: 0 11px; border-radius: 5px; color: #f2f6f2; text-decoration: none; font-size: 14px; }
+		.side-link.active { color: var(--forest); background: var(--lime); font-weight: 700; }
+		.side-link span { width: 19px; text-align: center; }
+		.sidebar-bottom { margin-top: auto; padding: 16px 10px 0; border-top: 1px solid #ffffff26; }
+		.sidebar-bottom p { margin: 0 0 4px; font-weight: 600; font-size: 13px; }
+		.sidebar-bottom small { color: #b8c9be; text-transform: capitalize; }
+		.main-area { min-width: 0; padding: 32px clamp(20px, 4vw, 56px) 48px; }
+		.topbar { display: flex; justify-content: space-between; align-items: center; gap: 18px; padding-bottom: 27px; border-bottom: 1px solid #dfe4dc; }
+		.topbar h1 { margin: 0 0 4px; font-family: Georgia, serif; font-size: 32px; font-weight: 400; }
+		.topbar p { margin: 0; color: var(--muted); font-size: 13px; }
+		.topbar-actions { display: flex; align-items: center; gap: 12px; }
+		.role-pill { padding: 7px 10px; border: 1px solid #d7ded5; border-radius: 20px; color: #496153; background: #fff; font-size: 12px; text-transform: capitalize; }
+		.text-button { border: 0; padding: 8px 0 8px 8px; color: #4f5c55; background: transparent; font-size: 13px; font-weight: 600; }
+		.text-button:hover { color: #b34c37; }
+		.metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 24px 0 30px; }
+		.metric { min-width: 0; padding: 18px 20px; border: 1px solid #e2e6df; border-radius: 6px; background: #fff; }
+		.metric-label { display: block; margin-bottom: 13px; color: var(--muted); font-size: 12px; }
+		.metric-value { font-family: Georgia, serif; font-size: 28px; }
+		.metric-note { float: right; margin-top: 8px; color: #718078; font-size: 11px; }
+		.inventory-head { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 14px; }
+		.inventory-head h2 { margin: 0 0 4px; font-family: Georgia, serif; font-size: 23px; font-weight: 400; }
+		.inventory-head p { margin: 0; color: var(--muted); font-size: 12px; }
+		.toolbar { display: flex; align-items: center; gap: 9px; }
+		.toolbar input { width: min(230px, 24vw); }
+		.toolbar select { width: 150px; }
+		.table-wrap { overflow-x: auto; border: 1px solid #e1e5df; border-radius: 6px; background: #fff; }
+		table { width: 100%; min-width: 760px; border-collapse: collapse; text-align: left; }
+		th { padding: 13px 15px; color: #748078; background: #f8f9f6; font-size: 10px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; }
+		td { padding: 13px 15px; border-top: 1px solid #edf0ea; font-size: 13px; }
+		.product-cell { display: flex; align-items: center; gap: 11px; min-width: 215px; }
+		.product-thumb { width: 42px; height: 48px; flex: 0 0 42px; overflow: hidden; border-radius: 4px; background: #e7ece5; }
+		.product-thumb img { width: 100%; height: 100%; object-fit: cover; }
+		.product-name { display: block; font-weight: 700; }
+		.product-detail { display: block; margin-top: 4px; color: var(--muted); font-size: 11px; }
+		.sku { color: #647169; font-size: 12px; }
+		.stock-count { font-variant-numeric: tabular-nums; font-weight: 700; }
+		.status { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; font-size: 11px; }
+		.status::before { width: 7px; height: 7px; border-radius: 50%; background: #5c9a72; content: ""; }
+		.status.low::before { background: #de9d45; }
+		.status.out::before { background: #d66558; }
+		.row-actions { display: flex; justify-content: end; gap: 6px; }
+		.icon-button { border: 1px solid #e0e5df; border-radius: 4px; padding: 6px 9px; background: #fff; color: #48584e; font-size: 11px; }
+		.icon-button:hover { border-color: #91a596; }
+		.icon-button.delete:hover { border-color: #e8aaa0; color: #b43e34; }
+		.empty-state { padding: 42px 20px; color: var(--muted); text-align: center; }
+		.empty-state strong { display: block; margin-bottom: 7px; color: var(--ink); }
+		.table-foot { display: flex; justify-content: space-between; gap: 12px; padding: 12px 2px; color: var(--muted); font-size: 11px; }
+		.toast { position: fixed; right: 24px; bottom: 24px; z-index: 10; max-width: min(400px, calc(100vw - 48px)); padding: 13px 16px; border-radius: 5px; color: #fff; background: var(--forest); box-shadow: 0 8px 28px #10251f35; font-size: 13px; }
+		dialog { width: min(520px, calc(100vw - 28px)); max-height: calc(100vh - 32px); padding: 0; border: 0; border-radius: 7px; box-shadow: 0 18px 70px #12251f50; }
+		dialog::backdrop { background: #13231f99; }
+		.dialog-head { display: flex; justify-content: space-between; align-items: start; padding: 22px 24px 14px; border-bottom: 1px solid var(--line); }
+		.dialog-head h2 { margin: 0 0 4px; font-family: Georgia, serif; font-size: 24px; font-weight: 400; }
+		.dialog-head p { margin: 0; color: var(--muted); font-size: 12px; }
+		.close-button { border: 0; padding: 4px; background: transparent; color: var(--muted); font-size: 23px; line-height: 1; }
+		#product-form { padding: 18px 24px 22px; }
+		.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+		.form-grid .field { margin-bottom: 14px; }
+		.form-grid input { min-width: 0; }
+		.dialog-actions { display: flex; justify-content: flex-end; gap: 10px; padding-top: 6px; }
+		.secondary-button { min-height: 42px; padding: 0 15px; border: 1px solid #d8dfd7; border-radius: 5px; color: var(--ink); background: #fff; font-weight: 600; }
+		.java-section {
+			width: 100%;
+			margin-top: 28px;
+			padding: 22px 22px 18px;
+			border: 1px solid #e2e6df;
+			border-radius: 8px;
+			background: #fff;
+			box-shadow: 0 4px 12px rgba(16, 35, 31, 0.02);
+		}
+		.java-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 16px;
+			margin-bottom: 16px;
+		}
+		.java-header h3 {
+			margin: 0;
+			font-family: Georgia, serif;
+			font-size: 24px;
+			font-weight: 400;
+		}
+		.java-header span {
+			color: var(--muted);
+			font-size: 12px;
+			font-weight: 700;
+			letter-spacing: 0.8px;
+			text-transform: uppercase;
+		}
+		.java-code {
+			margin: 0;
+			padding: 18px 20px;
+			border-radius: 8px;
+			background: #16232c;
+			color: #ecf4ff;
+			font-size: 14px;
+			line-height: 1.6;
+			overflow-x: auto;
+			white-space: pre-wrap;
+			word-break: break-word;
+			font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+		}
+		@media (max-width: 900px) {
+			.login-layout { grid-template-columns: minmax(330px, .95fr) minmax(300px, 1.05fr); }
+			.login-panel { padding-right: 34px; padding-left: 34px; }
+			.app-shell { grid-template-columns: 190px minmax(0, 1fr); }
+			.sidebar { padding-right: 12px; padding-left: 12px; }
+			.main-area { padding-right: 22px; padding-left: 22px; }
+			.metrics { gap: 9px; }
+			.metric { padding: 15px; }
+		}
+		@media (max-width: 680px) {
+			.login-layout { display: block; }
+			.login-panel { min-height: 100vh; padding: 26px 24px; }
+			.login-content { margin-top: 54px; }
+			.login-art { display: none; }
+			.app-shell { display: block; }
+			.sidebar { min-height: auto; padding: 13px 16px; }
+			.sidebar .brand { padding: 0; }
+			.sidebar .nav-label, .sidebar-bottom { display: none; }
+			.side-link { display: inline-flex; min-height: 34px; margin: 12px 0 0; padding: 0 10px; }
+			.main-area { padding: 22px 16px 34px; }
+			.topbar { align-items: flex-start; padding-bottom: 18px; }
+			.topbar h1 { font-size: 27px; }
+			.topbar-actions { flex-wrap: wrap; justify-content: end; gap: 6px; }
+			.role-pill { display: none; }
+			.metrics { grid-template-columns: 1fr 1fr; margin: 16px 0 24px; }
+			.metric:last-child { grid-column: 1 / -1; }
+			.inventory-head { display: block; }
+			.toolbar { margin-top: 14px; }
+			.toolbar input { width: 100%; min-width: 0; }
+			.toolbar select { width: 132px; flex: 0 0 132px; }
+			.form-grid { grid-template-columns: 1fr; }
+			#product-form { padding: 16px 20px 20px; }
+		}
+	</style>
+</head>
+<body>
+	<section id="login-screen" class="login-layout">
+		<div class="login-panel">
+			<div class="brand"><span class="brand-mark" aria-hidden="true">P</span><span>Pocket Shop</span></div>
+			<div class="login-content">
+				<span class="eyebrow">Store team access</span>
+				<h1>Your inventory,<br>in good hands.</h1>
+				<p>Sign in to manage the iPhone collection, check availability, and keep the shop up to date.</p>
+				<form id="login-form">
+					<div class="field">
+						<label for="username">Username</label>
+						<input id="username" name="username" autocomplete="username" required>
+					</div>
+					<div class="field">
+						<label for="password">Password</label>
+						<input id="password" name="password" type="password" autocomplete="current-password" required>
+					</div>
+					<button class="primary-button login-submit" type="submit">Sign in</button>
+					<p id="login-error" class="login-error" role="alert"></p>
+				</form>
+				<div class="demo-access">
+					<span>Demo accounts · click to fill</span>
+					<div class="demo-buttons">
+						<button class="demo-button" type="button" data-user="admin" data-password="admin123">Admin</button>
+						<button class="demo-button" type="button" data-user="staff" data-password="staff123">Staff</button>
+						<button class="demo-button" type="button" data-user="customer" data-password="customer123">Customer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="login-art" aria-label="iPhone on a clean studio background">
+			<img src="https://images.unsplash.com/photo-1592750475338-74b7b21085ab?auto=format&amp;fit=crop&amp;w=1600&amp;q=85" alt="A modern smartphone">
+			<div class="art-copy">
+				<span>Thoughtful tech, ready to go</span>
+				<h2>Find the iPhone that fits your life.</h2>
+				<p>From everyday essentials to pro-level cameras, keep every model accounted for.</p>
+			</div>
+		</div>
+	</section>
+
+	<div id="shop-app" class="app-shell" hidden>
+		<aside class="sidebar">
+			<div class="brand"><span class="brand-mark" aria-hidden="true">P</span><span>Pocket Shop</span></div>
+			<span class="nav-label">Workspace</span>
+			<a class="side-link active" href="#inventory"><span aria-hidden="true">▦</span>Inventory</a>
+			<div class="sidebar-bottom">
+				<p id="sidebar-name"></p>
+				<small id="sidebar-role"></small>
+			</div>
+		</aside>
+		<main class="main-area" id="inventory">
+			<header class="topbar">
+				<div>
+					<h1>Inventory</h1>
+					<p>Manage your iPhone collection and current stock.</p>
+				</div>
+				<div class="topbar-actions">
+					<span id="role-pill" class="role-pill"></span>
+					<button id="logout-button" class="text-button" type="button">Sign out</button>
+				</div>
+			</header>
+
+			<section class="metrics" aria-label="Inventory summary">
+				<div class="metric"><span class="metric-label">Models listed</span><span id="metric-models" class="metric-value">0</span><span class="metric-note">iPhone variants</span></div>
+				<div class="metric"><span class="metric-label">Units in stock</span><span id="metric-units" class="metric-value">0</span><span class="metric-note">Across all models</span></div>
+				<div class="metric"><span class="metric-label">Inventory value</span><span id="metric-value" class="metric-value">$0</span><span class="metric-note">At listed prices</span></div>
+			</section>
+
+			<section aria-labelledby="inventory-title">
+				<div class="inventory-head">
+					<div>
+					<h2 id="inventory-title">iPhone models</h2>
+					<p id="access-note"></p>
+				</div>
+				<div class="toolbar">
+					<input id="search-input" type="search" placeholder="Search models or SKU" aria-label="Search models or SKU">
+					<select id="stock-filter" aria-label="Filter by stock">
+						<option value="all">All stock</option>
+						<option value="low">Low stock</option>
+						<option value="out">Out of stock</option>
+					</select>
+					<button id="add-product" class="primary-button" type="button">Add iPhone</button>
+				</div>
+			</div>
+			<div class="table-wrap">
+				<table>
+					<thead><tr><th scope="col">Product</th><th scope="col">SKU</th><th scope="col">Storage</th><th scope="col">Price</th><th scope="col">Stock</th><th scope="col">Status</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>
+					<tbody id="product-rows"></tbody>
+				</table>
+				<div id="empty-state" class="empty-state" hidden><strong>No iPhones match.</strong>Try another search or stock filter.</div>
+			</div>
+			<div class="table-foot"><span id="result-count"></span><span>Inventory updates are saved to the local data file.</span></div>
+			<div id="toast" class="toast" role="status" hidden></div>
+		</section>
+
+		<section class="java-section" aria-label="Java source example">
+			<div class="java-header">
+				<h3>Java file</h3>
+				<span>App.java</span>
+			</div>
+			<pre class="java-code">public class App {
+    public static void main(String[] args) {
+        System.out.println("Pocket Shop inventory ready.");
+
+        Inventory inventory = new Inventory();
+        inventory.addPhone("iPhone 16 Pro", "IP16P-128-BLK", 999.00);
+        inventory.listPhones();
+    }
+}
+
+class Inventory {
+    public void addPhone(String model, String sku, double price) {
+        System.out.println("Added " + model + " (" + sku + ") for $" + price);
+    }
+
+    public void listPhones() {
+        System.out.println("Inventory synced successfully.");
+    }
+}</pre>
+		</section>
+		</main>
+	</div>
+
+	<dialog id="product-dialog">
+		<div class="dialog-head">
+			<div><h2 id="dialog-title">Add iPhone</h2><p>Enter the product and stock details.</p></div>
+			<button id="close-dialog" class="close-button" type="button" aria-label="Close">&times;</button>
+		</div>
+		<form id="product-form">
+			<div class="form-grid">
+				<div class="field"><label for="product-model">Model</label><input id="product-model" name="model" placeholder="iPhone 16 Pro" maxlength="80" required></div>
+				<div class="field"><label for="product-sku">SKU</label><input id="product-sku" name="sku" placeholder="IP16P-128-BLK" maxlength="80" required></div>
+				<div class="field"><label for="product-storage">Storage</label><input id="product-storage" name="storage" placeholder="128 GB" maxlength="80" required></div>
+				<div class="field"><label for="product-color">Color</label><input id="product-color" name="color" placeholder="Black" maxlength="80" required></div>
+				<div class="field"><label for="product-price">Price (USD)</label><input id="product-price" name="price" type="number" min="0.01" max="100000" step="0.01" placeholder="999.00" required></div>
+				<div class="field"><label for="product-stock">Units in stock</label><input id="product-stock" name="stock" type="number" min="0" max="1000000" step="1" placeholder="12" required></div>
+			</div>
+			<p id="form-error" class="login-error" role="alert"></p>
+			<div class="dialog-actions">
+				<button id="cancel-dialog" class="secondary-button" type="button">Cancel</button>
+				<button class="primary-button" type="submit">Save product</button>
+			</div>
+		</form>
+	</dialog>
+	<script>
+		const loginScreen = document.querySelector("#login-screen");
+		const shopApp = document.querySelector("#shop-app");
+		const loginForm = document.querySelector("#login-form");
+		const loginError = document.querySelector("#login-error");
+		const productRows = document.querySelector("#product-rows");
+		const productDialog = document.querySelector("#product-dialog");
+		const productForm = document.querySelector("#product-form");
+		const toast = document.querySelector("#toast");
+		let currentUser = null;
+		let products = [];
+		let editingId = null;
+		let toastTimer;
+
+		async function api(path, options = {}) {
+			const response = await fetch(path, {
+				...options,
+				credentials: "same-origin",
+				headers: { "Content-Type": "application/json", ...options.headers }
+			});
+			const result = await response.json();
+			if (!response.ok) throw new Error(result.error || "Something went wrong.");
+			return result;
+		}
+
+		function showToast(message) {
+			toast.textContent = message;
+			toast.hidden = false;
+			clearTimeout(toastTimer);
+			toastTimer = setTimeout(() => { toast.hidden = true; }, 2800);
+		}
+
+		function setUser(user) {
+			currentUser = user;
+			loginScreen.hidden = Boolean(user);
+			shopApp.hidden = !user;
+			if (!user) return;
+			document.querySelector("#sidebar-name").textContent = user.name;
+			document.querySelector("#sidebar-role").textContent = user.role;
+			document.querySelector("#role-pill").textContent = user.role;
+			const canManage = user.role === "admin" || user.role === "staff";
+			document.querySelector("#add-product").hidden = !canManage;
+			document.querySelector("#access-note").textContent = user.role === "customer"
+				? "Browse current availability and pricing."
+				: user.role === "staff" ? "Create and update products. Admins handle deletions." : "Full inventory access · add, edit, and remove products.";
+			loadProducts();
+		}
+
+		async function loadProducts() {
+			try {
+				const result = await api("/api/products");
+				products = result.products;
+				renderProducts();
+			} catch (error) {
+				showToast(error.message);
+			}
+		}
+
+		function money(amount) {
+			return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(amount);
+		}
+
+		function renderProducts() {
+			const query = document.querySelector("#search-input").value.trim().toLowerCase();
+			const filter = document.querySelector("#stock-filter").value;
+			const filtered = products.filter(product => {
+				const matchesQuery = `${product.model} ${product.sku} ${product.color}`.toLowerCase().includes(query);
+				const matchesStock = filter === "all" || (filter === "out" ? product.stock === 0 : product.stock > 0 && product.stock < 5);
+				return matchesQuery && matchesStock;
+			});
+			const units = products.reduce((sum, product) => sum + product.stock, 0);
+			const value = products.reduce((sum, product) => sum + product.stock * product.price, 0);
+			document.querySelector("#metric-models").textContent = products.length;
+			document.querySelector("#metric-units").textContent = units.toLocaleString("en-US");
+			document.querySelector("#metric-value").textContent = money(value);
+			document.querySelector("#result-count").textContent = `Showing ${filtered.length} of ${products.length} models`;
+			document.querySelector("#empty-state").hidden = filtered.length > 0;
+			productRows.innerHTML = filtered.map(product => {
+				const status = product.stock === 0 ? "out" : product.stock < 5 ? "low" : "in";
+				const statusLabel = status === "out" ? "Out of stock" : status === "low" ? "Low stock" : "In stock";
+				const actions = currentUser.role === "customer" ? "" : `<div class="row-actions"><button class="icon-button" type="button" data-action="edit" data-id="${product.id}">Edit</button>${currentUser.role === "admin" ? `<button class="icon-button delete" type="button" data-action="delete" data-id="${product.id}">Delete</button>` : ""}</div>`;
+				return `<tr>
+					<td><div class="product-cell"><div class="product-thumb"><img src="https://images.unsplash.com/photo-1592750475338-74b7b21085ab?auto=format&amp;fit=crop&amp;w=120&amp;q=70" alt="" loading="lazy"></div><div><span class="product-name">${escapeHtml(product.model)}</span><span class="product-detail">${escapeHtml(product.color)}</span></div></div></td>
+					<td class="sku">${escapeHtml(product.sku)}</td><td>${escapeHtml(product.storage)}</td><td>${money(product.price)}</td><td class="stock-count">${product.stock}</td><td><span class="status ${status}">${statusLabel}</span></td><td>${actions}</td>
+				</tr>`;
+			}).join("");
+		}
+
+		function escapeHtml(value) {
+			return String(value).replace(/[&<>"']/g, character => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" })[character]);
+		}
+
+		function openProductDialog(product = null) {
+			editingId = product ? product.id : null;
+			document.querySelector("#dialog-title").textContent = product ? "Edit iPhone" : "Add iPhone";
+			document.querySelector("#form-error").textContent = "";
+			productForm.reset();
+			for (const field of ["model", "sku", "storage", "color", "price", "stock"]) {
+				productForm.elements[field].value = product ? product[field] : "";
+			}
+			productDialog.showModal();
+		}
+
+		loginForm.addEventListener("submit", async event => {
+			event.preventDefault();
+			loginError.textContent = "";
+			const form = new FormData(loginForm);
+			try {
+				const result = await api("/api/login", { method: "POST", body: JSON.stringify(Object.fromEntries(form)) });
+				loginForm.reset();
+				setUser(result.user);
+			} catch (error) {
+				loginError.textContent = error.message;
+			}
+		});
+
+		document.querySelectorAll(".demo-button").forEach(button => button.addEventListener("click", () => {
+			document.querySelector("#username").value = button.dataset.user;
+			document.querySelector("#password").value = button.dataset.password;
+		}));
+
+		document.querySelector("#logout-button").addEventListener("click", async () => {
+			try { await api("/api/logout", { method: "POST", body: "{}" }); } finally { setUser(null); }
+		});
+
+		document.querySelector("#add-product").addEventListener("click", () => openProductDialog());
+		document.querySelector("#close-dialog").addEventListener("click", () => productDialog.close());
+		document.querySelector("#cancel-dialog").addEventListener("click", () => productDialog.close());
+		document.querySelector("#search-input").addEventListener("input", renderProducts);
+		document.querySelector("#stock-filter").addEventListener("change", renderProducts);
+
+		productRows.addEventListener("click", async event => {
+			const button = event.target.closest("button[data-action]");
+			if (!button) return;
+			const product = products.find(item => item.id === button.dataset.id);
+			if (!product) return;
+			if (button.dataset.action === "edit") openProductDialog(product);
+			if (button.dataset.action === "delete" && window.confirm(`Delete ${product.model} from inventory?`)) {
+				try {
+					await api(`/api/products/${encodeURIComponent(product.id)}`, { method: "DELETE" });
+					await loadProducts();
+					showToast(`${product.model} deleted.`);
+				} catch (error) { showToast(error.message); }
+			}
+		});
+
+		productForm.addEventListener("submit", async event => {
+			event.preventDefault();
+			document.querySelector("#form-error").textContent = "";
+			const form = new FormData(productForm);
+			const payload = Object.fromEntries(form);
+			payload.price = Number(payload.price);
+			payload.stock = Number(payload.stock);
+			try {
+				await api(editingId ? `/api/products/${encodeURIComponent(editingId)}` : "/api/products", {
+					method: editingId ? "PUT" : "POST",
+					body: JSON.stringify(payload)
+				});
+				productDialog.close();
+				await loadProducts();
+				showToast(editingId ? "Product updated." : "Product added.");
+			} catch (error) {
+				document.querySelector("#form-error").textContent = error.message;
+			}
+		});
+
+		(async function restoreSession() {
+			try {
+				const result = await api("/api/session");
+				if (result.user) setUser(result.user);
+			} catch (error) {
+				loginError.textContent = error.message;
+			}
+		})();
+	</script>
+</body>
+</html>

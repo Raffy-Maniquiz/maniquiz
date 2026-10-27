@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About me | Student E-Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="dark-mode">
+    <header class="site-header">
+        <nav class="top-nav" aria-label="Main navigation">
+            <a class="brand" href="index.html" aria-label="Rafael, home">
+                <img class="brand-mark" src="imgs/Film1.jpeg" alt="">
+                <span class="brand-name">Rafael</span>
+            </a>
+            <div class="nav-links">
+                <a class="home-icon-link" href="index.html" aria-label="Home" title="Home">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 10.75 9-7.5 9 7.5M5.5 9.5V21h13V9.5M9.5 21v-7h5v7"></path>
+                    </svg>
+                </a>
+            </div>
+            <button id="theme-btn" class="theme-btn" type="button" aria-label="Switch to light mode">☼</button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="about-page">
+            <div class="about-page-layout">
+                <div class="about-page-copy">
+                    <p class="about-eyebrow">PROFILE <span>·</span> 2026</p>
+                    <h1 id="about-title">A little about<br><em>Rafael.</em></h1>
+                    <p>I’m Rafael, a first-year Information Technology student interested in web development and creative media.</p>
+                    <p>My portfolio brings together web projects, interface prototyping, video production, and my involvement in student organizations.</p>
+
+                    <div class="about-focus">
+                        <p class="about-focus-label">AREAS OF INTEREST</p>
+                        <ul>
+                            <li><span>01</span> Web development</li>
+                            <li><span>02</span> Interface prototyping</li>
+                            <li><span>03</span> Video production</li>
+                        </ul>
+                    </div>
+                </div>
+                <figure class="about-photo">
+                    <img src="imgs/Film1.jpeg" alt="Rafael filming a student event with a camera">
+                    <figcaption><span>ON SET</span><span>BEHIND THE LENS</span></figcaption>
+                </figure>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="year"></span> All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,75 @@
+{
+  "users": [
+    {
+      "id": "u-admin",
+      "name": "Avery Admin",
+      "username": "admin",
+      "role": "admin",
+      "salt": "b1a28461db3cfc187521ac10f21d1ba9",
+      "password_hash": "75b5f4e182f45b972093d2ffcfe259182f3f84e591433237d889148071a3ccf3"
+    },
+    {
+      "id": "u-staff",
+      "name": "Sam Staff",
+      "username": "staff",
+      "role": "staff",
+      "salt": "2aee8d2b786f872b4c8860e47442541d",
+      "password_hash": "a0e8df651281f047b010881369a465a0b8ea92f69961eb2619021b9a892ac034"
+    },
+    {
+      "id": "u-customer",
+      "name": "Casey Customer",
+      "username": "customer",
+      "role": "customer",
+      "salt": "abcfe740f27e69f25e0d2a67ff4e6a2d",
+      "password_hash": "54f3163be19f846d73eb67d10792b03bf086fbb4447dfd3f4ea40f3d846d9603"
+    }
+  ],
+  "products": [
+    {
+      "sku": "IP16PM-256-NAT",
+      "model": "iPhone 16 Pro Max",
+      "storage": "256 GB",
+      "color": "Natural Titanium",
+      "price": 1199.0,
+      "stock": 8,
+      "id": "p-1001"
+    },
+    {
+      "id": "p-1002",
+      "sku": "IP16P-128-DES",
+      "model": "iPhone 16 Pro",
+      "storage": "128 GB",
+      "color": "Desert Titanium",
+      "price": 999.0,
+      "stock": 14
+    },
+    {
+      "id": "p-1003",
+      "sku": "IP16-128-ULT",
+      "model": "iPhone 16",
+      "storage": "128 GB",
+      "color": "Ultramarine",
+      "price": 799.0,
+      "stock": 3
+    },
+    {
+      "id": "p-1004",
+      "sku": "IP15-128-BLK",
+      "model": "iPhone 15",
+      "storage": "128 GB",
+      "color": "Black",
+      "price": 699.0,
+      "stock": 0
+    },
+    {
+      "id": "p-1005",
+      "sku": "IPSE3-64-RED",
+      "model": "iPhone SE (3rd gen)",
+      "storage": "64 GB",
+      "color": "Red",
+      "price": 249.0,
+      "stock": 6
+    }
+  ]
+}
